@@ -18,18 +18,25 @@ print("Labels count in y:", np.bincount(y))
 print("Labels count in y_train:", np.bincount(y_train))
 print("Labels count in y_test:", np.bincount(y_test))
 
-# Decision tree
+from sklearn.preprocessing import StandardScaler
 
-from sklearn.tree import DecisionTreeClassifier
+sc = StandardScaler()
+sc.fit(X_train)
+X_train_std = sc.transform(X_train)
+X_test_std = sc.transform(X_test)
 
-tree_model = DecisionTreeClassifier(criterion='gini', max_depth=4, random_state=1)
-tree_model.fit(X_train, y_train)
+# K-Nearest neighbor
 
-y_pred = tree_model.predict(X_test)
+from sklearn.neighbors import KNeighborsClassifier
+
+knn = KNeighborsClassifier(n_neighbors=5, p=2, metric='minkowski')
+knn.fit(X_train_std, y_train)
+
+y_pred = knn.predict(X_test_std)
 misclassified = (y_test != y_pred).sum()
 print(f'Misclassified: {misclassified}')
 
-print(f'Accuracy: {tree_model.score(X_test, y_test)}')
+print(f'Accuracy: {knn.score(X_test_std, y_test)}')
 
 # Plot decision regions
 
@@ -60,39 +67,10 @@ def plot_decision_regions(X, y, classifier, test_idx=None, resolution=0.02):
 
         plt.scatter(X_test[:, 0], X_test[:, 1], facecolors='none', edgecolor='black', alpha=1.0, linewidth=1, marker='o', s=100, label='test set')
 
-X_combined = np.vstack((X_train, X_test))
+X_combined_std = np.vstack((X_train_std, X_test_std))
 y_combined = np.hstack((y_train, y_test))
 
-plot_decision_regions(X=X_combined, y=y_combined, classifier=tree_model, test_idx=range(105, 150))
-plt.xlabel('petal length')
-plt.ylabel('sepal length')
-plt.legend(loc='upper left')
-plt.tight_layout()
-plt.show()
-
-# Draw the tree (basic rendering)
-
-from sklearn import tree
-
-tree.plot_tree(tree_model)
-plt.show()
-
-# Save nice png
-
-from pydotplus import graph_from_dot_data
-from sklearn.tree import export_graphviz
-dot_data = export_graphviz(tree_model, filled=True, rounded=True, class_names=['Setosa', 'Versicolor', 'Virginica'], feature_names=['petal length', 'petal width'], out_file=None)
-
-graph = graph_from_dot_data(dot_data)
-graph.write_png('03-scikit-learn/tree_iris.png')
-
-# random forest
-
-from sklearn.ensemble import RandomForestClassifier
-forest = RandomForestClassifier(criterion='gini', n_estimators=25, random_state=1, n_jobs=2)
-forest.fit(X_train, y_train)
-
-plot_decision_regions(X=X_combined, y=y_combined, classifier=forest, test_idx=range(105, 150))
+plot_decision_regions(X=X_combined_std, y=y_combined, classifier=knn, test_idx=range(105, 150))
 plt.xlabel('petal length')
 plt.ylabel('sepal length')
 plt.legend(loc='upper left')
