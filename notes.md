@@ -10,3 +10,6 @@ Page 59
 
 c='' is deprecated, use facecolors='none' instead
 
+Page 95
+
+code is missing plt.show()
