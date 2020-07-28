@@ -92,3 +92,20 @@ plt.xlabel('Number of features')
 plt.grid()
 plt.tight_layout()
 plt.show()
+
+# List the 3 best features
+
+k3 = list(sbs.subsets[-3])
+print("\nBest features:", df_wine.columns[1:][k3])
+
+# Accuracy on original dataset, will all features
+
+knn.fit(X_train_std, y_train)
+print('\nTraining accuracy:', knn.score(X_train_std, y_train))
+print('\nTest     accuracy:', knn.score(X_test_std, y_test))
+
+# Accuracy on original dataset, will the 3 best features
+
+knn.fit(X_train_std[:, k3], y_train)
+print('\nTraining accuracy:', knn.score(X_train_std[:, k3], y_train))
+print('\nTest     accuracy:', knn.score(X_test_std[:, k3], y_test))
