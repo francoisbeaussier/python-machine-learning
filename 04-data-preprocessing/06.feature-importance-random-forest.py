@@ -43,4 +43,14 @@ plt.xlim([-1, X_train.shape[1]])
 
 plt.tight_layout()
 plt.show()
-    
+
+# Note: highly correlated features may not all be ranked high
+
+from sklearn.feature_selection import SelectFromModel
+
+sfm = SelectFromModel(forest, threshold=0.1, prefit=True)
+X_selected = sfm.transform(X_train)
+print('Number of features that meet this threshold: {X_selected.shape[1]}')
+
+for f in range(X_selected.shape[1]):
+    print(f'{f+1}) {feat_labels[indices[f]]:<30} {importances[indices[f]]:3f}')    
