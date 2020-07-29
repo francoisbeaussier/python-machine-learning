@@ -13,3 +13,8 @@ c='' is deprecated, use facecolors='none' instead
 Page 95
 
 code is missing plt.show()
+
+page 141
+
+missing ',' after before rotation=90 towards the bottom of the code block
+
