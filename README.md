@@ -8,3 +8,4 @@ If you are looking for the the author's official repository with the original so
 - [Chapter 2 - Training simple ML algorithms for classification](02-training-simple-ml-alg/)
 - [Chapter 3 - A tour of machine learning classifiers using scikit-learn](03-scikit-learn/)
 - [Chapter 4 - Building good training datasets - Data processing](04-data-preprocessing/)
+- [Chapter 5 - Compressing data via dimensionality reduction](05-dimensionality-reduction/)
