@@ -9,3 +9,4 @@ If you are looking for the the author's official repository with the original so
 - [Chapter 3 - A tour of machine learning classifiers using scikit-learn](03-scikit-learn/)
 - [Chapter 4 - Building good training datasets - Data processing](04-data-preprocessing/)
 - [Chapter 5 - Compressing data via dimensionality reduction](05-dimensionality-reduction/)
+- [Chapter 6 - Best practices for model evaluation and hyperparameter tuning](06-hyperparameter-tuning/)
