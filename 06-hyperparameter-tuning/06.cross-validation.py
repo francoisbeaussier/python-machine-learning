@@ -18,11 +18,14 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 from sklearn.pipeline import make_pipeline
 
-pipe_lr = make_pipeline(StandardScaler(),
+pipe_svc = make_pipeline(StandardScaler(),
                         SVC(random_state=1))
 
-from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import cross_val_score
 
+# nested cross-validation 
+
+from sklearn.model_selection import GridSearchCV
 import numpy as np
 
 param_range = [0.0001, 0.001, 0.01, 0.1, 1, 10, 100, 1000]
@@ -32,14 +35,19 @@ param_grid = [
     {'svc__C': param_range, 'svc__gamma': param_range, 'svc__kernel': ['rbf']}
 ]
 
-gs = GridSearchCV(estimator=pipe_lr, param_grid=param_grid, scoring='accuracy', cv=10, refit=True, n_jobs=-1)
+gs = GridSearchCV(estimator=pipe_svc, param_grid=param_grid, scoring='accuracy', cv=2)
 
-gs = gs.fit(X_train, y_train)
-print('Best score:', gs.best_score_)
-print('Best params:', gs.best_params_)
+scores = cross_val_score(estimator=gs, X=X_train, y=y_train, scoring='accuracy', cv=5)
 
-clf = gs.best_estimator_
+print(f'CV accuracy: {np.mean(scores):.3f} +/- {np.std(scores):.3f}')
 
-print('Test accuracy:', clf.score(X_test, y_test))
+# Compare with a tree classifier
 
-# Note: using RandomizedSearch might perform just as well with much better performance
+from sklearn.tree import DecisionTreeClassifier
+
+param_grid = [{'max_depth': [1, 2, 3, 4, 5, 6, 7, None]}]
+gs = GridSearchCV(estimator=DecisionTreeClassifier(random_state=0), param_grid=param_grid, scoring='accuracy', cv=2)
+
+scores = cross_val_score(estimator=gs, X=X_train, y=y_train, scoring='accuracy', cv=5)
+
+print(f'CV accuracy: {np.mean(scores):.3f} +/- {np.std(scores):.3f}')
