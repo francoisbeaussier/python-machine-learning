@@ -23,7 +23,7 @@ pipe_lr = make_pipeline(StandardScaler(),
                         PCA(n_components=2), # Reduce to 2 features to make it more difficult
                         LogisticRegression(penalty='l2', solver='lbfgs', C=100, random_state=1))
 
-X_train2 = X_train[:, [4, 14]] # Remove some column, to maki it more difficult
+X_train2 = X_train[:, [4, 14]] # Remove some columns, to make it more difficult
 
 from sklearn.model_selection import StratifiedKFold
 
