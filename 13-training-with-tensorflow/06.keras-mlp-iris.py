@@ -60,7 +60,7 @@ results = iris_model.evaluate(ds_test.batch(50))
 print(f'Test loss: {results[0]} Test acc: {results[1]}')
 
 
-iris_model.save('iris-classifier.h5', overwrite=True, include_optimizer=True, save_format='h5')
+iris_model.save('13-training-with-tensorflow\\iris-classifier.h5', overwrite=True, include_optimizer=True, save_format='h5')
 
 # iris_model.to_json() -> architecture
 # iris_model.save_weights() -> weights
@@ -68,7 +68,7 @@ iris_model.save('iris-classifier.h5', overwrite=True, include_optimizer=True, sa
 # h5 -> HDF5 format
 # tf -> Tensorflow format
 
-iris_model_new = tf.keras.models.load_model('iris-classifier.h5')
+iris_model_new = tf.keras.models.load_model('13-training-with-tensorflow\\iris-classifier.h5')
 
 result = iris_model_new.evaluate(ds_test.batch(50))
 print(f'Test loss: {results[0]} Test acc: {results[1]}')
