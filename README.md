@@ -13,3 +13,4 @@ If you are looking for the the author's official repository with the original so
 - [Chapter 7 - Combining different models for ensemble learning](07-ensemble-learning/)
 - [Chapter 12 - Implementing a multilayer artificial neural network from scratch](12-multilayer-neural-network/)
 - [Chapter 13 - Parallelizing neural network training with TensorFlow ](13-training-with-tensorflow/)
+- [Chapter 14 - Going deeper - The mechanics of tensorflow ](14-tensorflow-mechanics/)
