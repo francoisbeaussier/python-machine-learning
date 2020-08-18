@@ -68,7 +68,7 @@ model.build(input_shape=(None, 2))
 model.summary()
 
 model.compile(optimizer=tf.keras.optimizers.SGD(), loss=tf.keras.losses.BinaryCrossentropy(), metrics=[tf.keras.metrics.BinaryAccuracy()])
-hist = model.fit(x_train, y_train, validation_data=(x_valid, y_valid), epochs=20, batch_size=2)
+hist = model.fit(x_train, y_train, validation_data=(x_valid, y_valid), epochs=200, batch_size=2)
 
 history = hist.history
 
